@@ -1,17 +1,23 @@
-name = "JSOTemplate"
+name = "BOLIB"
 uuid = "adf32eb0-fe7e-47bb-93e4-fe96e72f6839"
 authors = ["Abel Soares Siqueira <abel.s.siqueira@gmail.com> and contributors"]
 version = "0.1.0"
 
 [deps]
+ADNLPModels = "54578032-b7ea-4c30-94aa-7cbd1cce6c9a"
 Emporium = "4f286ecd-06d3-4492-bdef-0ca090b7d070"
 Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
 GitHub = "bc5e4493-9b4d-5f90-b8aa-2b2bcaad7a26"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 
 [compat]
+ADNLPModels = "0.8.13"
 Emporium = "0.2.4"
 Formatting = "0.4"
 GitHub = "5"
+LinearAlgebra = "1.11.0"
+NLPModels = "0.21.10"
 julia = "1.6"
 
 [extras]
