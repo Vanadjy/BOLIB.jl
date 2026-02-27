@@ -1,26 +1,26 @@
-using JSOTemplate
+using BOLIB
 using Documenter
 
-DocMeta.setdocmeta!(JSOTemplate, :DocTestSetup, :(using JSOTemplate); recursive = true)
+DocMeta.setdocmeta!(BOLIB, :DocTestSetup, :(using BOLIB); recursive = true)
 
 makedocs(;
-  modules = [JSOTemplate],
+  modules = [BOLIB],
   doctest = true,
   linkcheck = false,
   strict = false,
-  authors = "Abel Soares Siqueira <abel.s.siqueira@gmail.com> and contributors",
-  repo = "https://github.com/JuliaSmoothOptimizers/JSOTemplate.jl/blob/{commit}{path}#{line}",
-  sitename = "JSOTemplate.jl",
+  authors = "Valentin Dijon <vanadjy@gmail.com> and contributors",
+  repo = "https://github.com/Vanadjy/BOLIB.jl/blob/{commit}{path}#{line}",
+  sitename = "BOLIB.jl",
   format = Documenter.HTML(;
     prettyurls = get(ENV, "CI", "false") == "true",
-    canonical = "https://JuliaSmoothOptimizers.github.io/JSOTemplate.jl",
+    canonical = "https://Vanadjy.github.io/BOLIB.jl",
     assets = ["assets/style.css"],
   ),
   pages = ["Home" => "index.md", "Reference" => "reference.md"],
 )
 
 deploydocs(;
-  repo = "github.com/JuliaSmoothOptimizers/JSOTemplate.jl",
+  repo = "github.com/Vanadjy/BOLIB.jl",
   push_preview = true,
   devbranch = "main",
 )

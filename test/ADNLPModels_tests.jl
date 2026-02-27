@@ -30,11 +30,6 @@ else
     nlp_lower = ADNLPModel(f, xy0, lvar_lower, uvar_lower, g, g_lower, g_upper) # Generates an ADNLPModel for the lower-level problem
     nlp_upper = ADNLPModel(F, xy0, lvar_upper, uvar_upper, G, G_lower, G_upper) # Generates an ADNLPModel for the upper-level problem
 
-    #display(nlp_lower)
-    #display(nlp_upper)
-
-    # Add tests underneath
-    # Tests about if the AD computes the derivatives properly ? I don't thnik so, it would be a ADNLPModels.jl issue in that case
     meta_lower = nlp_lower.meta
     @test meta_lower.x0 == xy0
     @test meta_lower.nvar == model.dim[1] + model.dim[2]

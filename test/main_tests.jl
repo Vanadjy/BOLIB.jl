@@ -19,6 +19,10 @@ for i in prob_numbers
     @test isapprox(y0_bolib, y0_ref; atol=1e-6)
     @test length(y0_bolib) == dim_ref[2]
 
+    # Test xy0
+    xy0_bolib = vcat(x0_bolib, y0_bolib)
+    @test xy0_bolib == bolib_prob.xy0
+
     # Test F
     F_ref = F_data[i]
     F_bolib = bolib_prob.F_func(BOLIB.get_x0(bolib_prob), BOLIB.get_y0(bolib_prob))
