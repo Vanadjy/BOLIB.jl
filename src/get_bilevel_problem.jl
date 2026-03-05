@@ -33,7 +33,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             "AllendeStill2013",
             [2, 2, 5, 2],
             [0.0, 0.0, 0.0, 0.0],
-            [1.0, -0.5, 1.0],
+            [-1.0, -0.5, 1.0],
             (x,y) -> (x[1])^2 - 2*x[1] + (x[2])^2 - 2*x[2] + y[1]^2 + y[2]^2,
             (x,y) -> (y[1])^2 - 2*x[1]*y[1] + y[2]^2 - 2*x[2]*y[2],
             (x,y) -> [
@@ -372,7 +372,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             "Colson2002BIPA4",
             [1, 1, 2, 2],
             [1.5, 2.25],
-            [88.79, -0.77, 2.0],
+            [88.29, -0.77, 2.0],
             (x, y) -> x[1]^2 + (y[1] - 10)^2,
             (x, y) -> x[1]^3 + 2*y[1]^3 + x[1] - 2*y[1] - x[1]^2,
             (x, y) -> [
@@ -517,8 +517,8 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             "DempeFranke2011Ex42",
             [2, 2, 4, 3],
             [1.0, 1.0, 1.0, 1.0],
-            [2.13, -3.5, 1.0],
-            (x, y) -> x[1] + sum((y .- [1.0, 0.0]).^2),
+            [3.0, -3.5, 1.0],
+            (x, y) -> x[1] + (y[1] - 1)^2 + y[2]^2,
             (x, y) -> x[1]*y[1] + x[2]*y[2],
             (x, y) -> [
                 -1 - x[1],
@@ -591,7 +591,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
                 -y[2],
                 -y[3]
             ],
-            [0.5, 0.5, 0.0, 1.0, 1.0, 0.0]
+            [0.5, 0.5, 0.0, 0.0, 0.0, 2.0]
         )
 
     elseif prob_no == 29 || prob_no == "DeSilva1978"
@@ -2121,7 +2121,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             "SinhaMaloDeb2014TP8",
             [2, 2, 5, 6],
             [1.0, 1.0, 1.0, 1.0],
-            [0.0, 100.0, 1.0],
+            [62.0, 100.0, 1.0],
             (x, y) -> abs(2*x[1] + 2*x[2] - 3*y[1] - 3*y[2] - 60),
             (x, y) -> sum((y .- x .+ 20).^2),
             (x, y) -> [
@@ -2464,7 +2464,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             "RobustPortfolioP2",
             [11, 10, 13, 11], # N is problem parameter
             ones(Float64, 21), # Initial point depends on N
-            [1.15, 0.0, 2.0],
+            [-1.15, 0.0, 2.0],
             (x, y) -> -x[end],
             (x, y) -> y' * x[1:end-1] - x[end],
             (x, y) -> begin
@@ -2576,7 +2576,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
                 A = [1 1 0 0; 0 0 1 1]
                 vcat(A * y .+ [-1; -1], -A * y .+ [1; 1], -y)
             end,
-            -8.0
+            -4.0 # Possible solution, but the best knwon is for F(x,y) = -8, f(x,y) = 14
         )
 
     elseif prob_no == 137 || prob_no == "TollSettingP5"
@@ -3066,7 +3066,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> (y[1] - 2)^2,
             (x, y) -> vcat(-y, y .- 1), # [-y[1], -y[2], y[1]-1, y[2]-1]
             (x, y) -> vcat(-y, y .- 1),
-            [1.0, 0.0]
+            [NaN, 1.0, 0.0]
         )
 
     elseif prob_no == 164 || prob_no == "FrankeEtal2018Ex511"
@@ -3082,7 +3082,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> y[1] + y[2] + y[3],
             (x, y) -> Float64[], # No upper-level constraints
             (x, y) -> [-y[1]-y[2], -y[1]+y[2], -y[1], -y[3]],
-            [1.0, -1.0, 0.0]
+            [NaN, 1.0, -1.0, 0.0]
         )
 
     elseif prob_no == 165 || prob_no == "FrankeEtal2018Ex513"
@@ -3102,7 +3102,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
                 y[1]^2 + y[2]^2 - 1,
                 -y[3]
             ],
-            [0.0, 1.0, 0.0]
+            [NaN, 0.0, 1.0, 0.0]
         )
 
     elseif prob_no == 166 || prob_no == "FrankeEtal2018Ex521"
@@ -3120,7 +3120,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
                 y[1] + y[2] - 1,
                 -y[1]
             ],
-            [0.0, 1.0]
+            [NaN, 0.0, 1.0]
         )
 
     elseif prob_no == 167 || prob_no == "MitsosBarton2006Ex31"
