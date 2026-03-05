@@ -38,10 +38,10 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x,y) -> (y[1])^2 - 2*x[1]*y[1] + y[2]^2 - 2*x[2]*y[2],
             (x,y) -> [
                 - x[1],
-                - y[1],
                 - x[2],
-                - y[2],
-                x[1]-2
+                x[1]-2,
+                - y[1],
+                - y[2]
             ],
             (x,y) -> [
                 (y[1] - 1)^2 - 0.25,
@@ -100,32 +100,32 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             [4, 4, 9, 12],
             [5.0, 5.0, 15.0, 15.0, 0.0, 0.0, 0.0, 0.0],
             [-6600.0, 54.0, 1.0],
-            (x, y) -> -100*x[1] - 100*x[2] - x[3] - x[4],
-            (x, y) -> y[1]^2 + y[2]^2 + y[3]^2 + y[4]^2,
+            (x, y) -> (200 - y[1] - y[3])*(y[1] + y[3]) + (160 - y[2] - y[4])*(y[2] + y[4]),
+            (x, y) -> (y[1] - 4)^2 + (y[2] - 13)^2 + (y[3] - 35)^2 + (y[4]  -2)^2,
             (x, y) -> [
                 x[1] + x[2] + x[3] + x[4] - 40,
-                x[1] + x[2] - 20,
-                x[3] + x[4] - 20,
+                x[1] - 10,
+                x[2] - 5,
+                x[3] - 15,
+                x[4] - 20,
                 -x[1],
                 -x[2],
                 -x[3],
-                -x[4],
-                x[1] - 15,
-                x[2] - 15
+                -x[4]
             ],
             (x, y) -> [
-                y[1] + y[2] + y[3] + y[4] - 40,
-                y[1] + y[2] - 20,
-                y[3] + y[4] - 20,
+                0.4*y[1] + 0.7*y[2] - x[1],
+                0.6*y[1] + 0.3*y[2] - x[2],
+                0.4*y[3] + 0.7*y[4] - x[3],
+                0.6*y[3] + 0.3*y[4] - x[4],
+                y[1] - 20,
+                y[2] - 20,
+                y[3] - 40,
+                y[4] - 40,
                 -y[1],
                 -y[2],
                 -y[3],
-                -y[4],
-                y[1] - 15,
-                y[2] - 15,
-                y[1] - x[1],
-                y[2] - x[2],
-                y[3] - x[3]
+                -y[4]
             ],
             −6600.00
         )
@@ -2494,9 +2494,9 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> begin
                 A = [1 1 1 0 0 0 0 0; -1 0 0 1 1 0 0 0;
                     0 -1 0 -1 0 1 1 0; 0 0 0 0 -1 -1 0 1; 0 0 1 0 0 0 1 1]
-                vcat(A * y .+ [-1; 0; 0; 0; -1], -A * y .+ [-1; 0; 0; 0; -1], -y)
+                vcat(A * y .+ [-1; 0; 0; 0; -1], -A * y .+ [1; 0; 0; 0; 1], -y)
             end,
-            [7.0, 4.0, 6.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+            [7.0, 4.0, 6.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         )
 
     elseif prob_no == 134 || prob_no == "TollSettingP2"
@@ -2509,22 +2509,18 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> [2*x[1], 2*x[1], 2*x[2], 2*x[2], 2*x[3], 2*x[3], 5, 7, 14, 7, 2, 4, 29, 20, 12, 8, 5, 2]' * y,
             (x, y) -> -x,
             (x, y) -> begin
-                rows1 = [fill(1,3); fill(2,3); fill(3,3); fill(4,3); fill(5,3); fill(6,3); fill(7,2); fill(8,2); fill(9,1); fill(10,1)]
-                rows_minus1 = [5; 6; 7; 7; 8; 8; fill(9, 3); fill(10, 3)]
-                cols1 = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 5, 13, 2, 6, 16, 3, 14, 4, 17, 15, 18]
-                cols_minus1 = [7, 10, 1, 8, 2, 11, 3, 5, 9, 4, 6, 12]
+                coordinates_1 = [[1, 7], [1, 8], [1, 9], [2, 10], [2, 11], [2, 12], [3, 13], [3, 14], [3, 15], [4, 16], [4, 17], [4, 18], [5, 1], [5, 5], [5, 13], [6, 2], [6, 6], [6, 16], [7, 3], [7, 14], [8, 4], [8, 17], [9, 15], [10, 18]]
+                coordinates_minus1 = [[5, 7], [6, 10], [7, 1], [7, 8], [8, 2], [8, 11], [9, 3], [9, 5], [9, 9], [10, 4], [10, 6], [10, 12]]
                 A = zeros(10, 18)
-                for i in rows1
-                    for j in cols1
-                        A[i, j] = 1.0
-                    end
+                for coord in coordinates_1
+                    i, j = coord
+                    A[i, j] = 1.0
                 end
-                for i in rows_minus1
-                    for j in cols_minus1
-                        A[i, j] = - 1.0
-                    end
+                for coord in coordinates_minus1
+                    i, j = coord
+                    A[i, j] = -1.0
                 end
-                vcat(A * y .+ [fill(-1.0, 4) ; zeros(Float64, 6)], -A * y .+ [fill(-1.0, 4) ; zeros(Float64, 6)], -y)
+                vcat(A * y .+ [fill(-1.0, 4) ; zeros(Float64, 6)], -A * y .+ [fill(1.0, 4) ; zeros(Float64, 6)], -y)
             end,
             [0.5, 4.0, 4.5, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]
         )
@@ -2539,41 +2535,32 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> [2*x[1], 20*x[1], 2*x[2], 20*x[2], 2*x[3], 20*x[3], 5, 7, 14, 7, 2, 4, 29, 20, 12, 8, 5, 2]' * y,
             (x, y) -> -x,
             (x, y) -> begin
-                rows1 = [fill(1,3); fill(2,3); fill(3,3); fill(4,3); fill(5,3); 6 ; 7 ; 7 ; 8 ; 9 ; 10]
-                rows_minus1 = [5 ; 6 ; 7 ; 7 ; 8 ; 9 ; 9 ; 9 ; 10]
-                rows10 = [6 ; 6 ; 7]
-                rows_minus10 = [8 ; 10 ; 10]
-
-                cols1 = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 5, 13, 16, 3, 14, 17, 15, 18]
-                cols_minus1 = [7, 10, 1, 8, 11, 3, 5, 9, 12]
-                cols10 = [2, 6, 4]
-                cols_minus10 = [2, 4, 6]
+                coordinates_1 = [[1, 7], [1, 8], [1, 9], [2, 10], [2, 11], [2, 12], [3, 13], [3, 14], [3, 15], [4, 16], [4, 17], [4, 18], [5, 1], [5, 5], [5, 13], [6, 16], [7, 3], [7, 14], [8, 17], [9, 15], [10, 18]]
+                coordinates_minus1 = [[5, 7], [6, 10], [7, 1], [7, 8], [8, 11], [9, 3], [9, 5], [9, 9], [10, 12]]
+                coordinates_10 = [[6, 2], [6, 6], [8, 4]]
+                coordinates_minus10 = [[8, 2], [10, 4], [10, 6]]
 
                 # building matrix A
                 A = zeros(10, 18)
-                for i in rows1
-                    for j in cols1
-                        A[i, j] = 1.0
-                    end
+                for coord in coordinates_1
+                    i, j = coord
+                    A[i, j] = 1.0
                 end
-                for i in rows_minus1
-                    for j in cols_minus1
-                        A[i, j] = - 1.0
-                    end
+                for coord in coordinates_minus1
+                    i, j = coord
+                    A[i, j] = -1.0
                 end
-                for i in rows10
-                    for j in cols10
-                        A[i, j] = 10.0
-                    end
+                for coord in coordinates_10
+                    i, j = coord
+                    A[i, j] = 10.0
                 end
-                for i in rows_minus10
-                    for j in cols_minus10
-                        A[i, j] = -10.0
-                    end
+                for coord in coordinates_minus10
+                    i, j = coord
+                    A[i, j] = -10.0
                 end
-                vcat(A * y .+ [fill(-1.0, 4) ; zeros(Float64, 6)], -A * y .+ [fill(-1.0, 4) ; zeros(Float64, 6)], -y)
+                vcat(A * y .+ [fill(-1.0, 4) ; zeros(Float64, 6)], -A * y .+ [fill(1.0, 4) ; zeros(Float64, 6)], -y)
             end,
-            -24.0
+            -3.5 # A possible solution, but the best known F(x,y) = -24 for f(x,y) = 81. 
         )
 
     elseif prob_no == 136 || prob_no == "TollSettingP4"

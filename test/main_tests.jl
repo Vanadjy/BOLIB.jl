@@ -52,5 +52,12 @@ for i in prob_numbers
     else
       @test isapprox(g_bolib, g_ref; atol=1e-6)
     end
+
+    # Test optimal value
+    F_star = get_opt_val(bolib_prob)
+    F_star_ref = Ff_data[i][1]
+    if !isnan(F_star) && !isnan(F_star_ref)
+      @test isapprox(F_star, F_star_ref; atol=1e-1)
+    end
   end
 end

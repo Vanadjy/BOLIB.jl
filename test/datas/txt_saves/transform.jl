@@ -1,10 +1,10 @@
 # transform.jl
 # Reads "Untitled-1" and writes "Untitled-1.out" where every non-empty input line
 # is converted to a bracketed vector with a trailing comma (blank lines -> [],).
-lines = readlines("G_value.txt")
+lines = readlines("Ff_value.txt")
 out = String[]
 for l in lines
-    if occursin(r"^\s*G_value\s*=\s*\[", l)   # keep the opening line as-is
+    if occursin(r"^\s*Ff_value\s*=\s*\[", l)   # keep the opening line as-is
         push!(out, l)
     elseif occursin(r"^\s*\]\s*$", l)         # keep the final closing bracket as-is
         push!(out, l)
@@ -26,4 +26,4 @@ for l in lines
         end
     end
 end
-write("G_value_out.txt", join(out, "\n"))
+write("Ff_value_out.txt", join(out, "\n"))
