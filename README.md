@@ -55,7 +55,13 @@ Functions of a bilevel problem can be evaluated separately through the fields of
 
 ````JULIA
 F = model.F_func
-F(x0, y0) # Returns a value
+F(x0, y0) # Returns a real value
+
+f = model.f_func
+f(x0, y0) # Returns a real value
+
+G = model.G_func
+G(x0, y0) # Returns a vector
 
 g = model.g_func
 g(x0, y0) # Returns a vector
