@@ -1,7 +1,7 @@
 n_probs = length(F_data)
 for i in prob_numbers
   bolib_prob = BOLIB.get_bilevel_problem(i)
-  @testset "$(bolib_prob.name)" begin
+  @testset "Problem $i" begin
     # Test dimensions
     dim_ref = dim_data[i]
     dim_bolib = bolib_prob.dim

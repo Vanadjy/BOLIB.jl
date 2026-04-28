@@ -51,27 +51,59 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             
         )
     elseif prob_no == 3 || prob_no == "AnEtal2009"
+        # Problem AnEtal2009 from Formulas.pdf
+        # F = 0.5 * [x; y]' * H * [x; y] + c' * [x; y]
+        # f = y' * (P*x + q) + 0.5 * y' * Q * y
+        # Upper level constraints: -x, -y, A*x + B*y + d
+        # Lower level constraints: D*x + E*y + b
+        
+        H = [-3.8 4.4 1.2 -2.2;
+             4.4 -2.2 0.6 1.8;
+             1.2 0.6 0.0 0.4;
+             -2.2 1.8 0.4 0.0]
+        c = [935.74474; 87.53654; 121.96196; 299.24825]
+        
+        A = [0.00000 3.88889;
+             -2.00000 8.77778]
+        B = [4.88889 7.44444;
+             -5.11111 0.88889]
+        d = [-61.57778; -0.80000]
+        
+        P = [-17.85000 6.57500;
+             30.32500 30.32500]
+        Q = [21.10204 11.81633;
+             11.81633 -14.44898]
+
+        q = [-18.21053; 13.05263]
+        
+        D = [5.00000 7.44444;
+             -8.33333 3.00000;
+             -8.66667 -8.55556;
+             6.44444 -5.11111]
+        E = [3.88889 1.77778;
+             6.88889 6.11111;
+             -5.33333 -7.00000;
+             1.44444 4.44444]
+        b = [-39.62222; -60.00000; 72.37778; -17.28889]
+
         return(BilevelProblem(
             "AnEtal2009",
             [2, 2, 6, 4],
             [1.0, 1.0, 1.0, 1.0],
             [2251.55, 565.78, 1.0],
-            (x,y) -> (x[1]-5)^2 + (2x[2]+1)^2,
-            (x,y) -> (y[1]-4)^2 + (y[2]-2)^4,
-            (x,y) -> [
-                4x[1]+5x[2] <= 20,
-                -4x[1]-5x[2] <= -20,
-                x[1]-2y[1]+4y[2] <= 10,
-                -x[1]+2y[1]-4y[2] <= -10,
-                x[2]-3y[1]+y[2] <= 10,
-                -x[2]+3y[1]-y[2] <= -10
-            ],
-            (x,y) -> [
-                y[1] <= 10,
-                y[2] <= 10,
-                -y[1] <= 0,
-                -y[2] <= 0
-            ],
+            # F(x,y) = 0.5 * [x; y]' * H * [x; y] + c' * [x; y]
+            (x, y) -> begin
+                z = [x; y]
+                return 0.5 * dot(z, H * z) + dot(c, z)
+            end,
+            # f(x,y) = y' * (P*x + q) + 0.5 * y' * Q * y
+            (x, y) -> begin
+                return dot(y, P * x + q) + 0.5 * dot(y, Q * y)
+            end,
+            # G(x,y) = [-x; -y; A*x + B*y + d] <= 0
+            (x, y) -> vcat(-x, -y, A * x + B * y + d),
+            # g(x,y) = D*x + E*y + b <= 0
+            (x, y) -> D * x + E * y + b,
             [0.200001, 1.999997, 3.999998, 4.600005])
         )
     
@@ -1009,7 +1041,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             end,
             (x, y) -> begin
                 a = (1.5*y[1] - x[1])/0.055
-                2 - exp((-a)^0.4) - 0.8*exp(-((2*y[1] + x[1] - 3)/0.5)^2)
+                2 - exp(-(a)^0.4) - 0.8*exp(-((2*y[1] + x[1] - 3)/0.5)^2)
             end,
             (x, y) -> [
                 -x[1],
@@ -2237,7 +2269,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             "YeZhu2010Ex43",
             [1, 1, 2, 1],
             [-1.0, -1.0],
-            [1.0, -2.0, 1.0],
+            [1.25, -2.0, 1.0],
             (x, y) -> (x[1] - 1)^2 + (y[1] - 2)^2,
             (x, y) -> y[1]^3 - 3*y[1],
             (x, y) -> [-3 - x[1], x[1] - 2],
@@ -2451,7 +2483,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
                 N = length(y)
                 I = collect(1:N)
                 d = 2
-                si = ((0.05 / 3 / N) * sqrt(2 * N * (N + 1) .* I)).^d
+                si = ((0.05 / (3 * N)) * sqrt.(2 * N * (N + 1) .* I)).^d
                 yi = 1.15 .+ (0.05 / N) .* I
                 [sum(abs.(y .- yi).^d ./ si) - 1.5^d; -y]
             end,
@@ -2596,8 +2628,8 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     # Special cases that need additional data
-    #elseif prob_no == 138 || prob_no == "OptimalControl"
-        #error("OptimalControl requires additional parameters - implement separately")
+    elseif prob_no == 138 || prob_no == "OptimalControl"
+        @warn "OptimalControl requires additional parameters - need to be implemented separately"
 
     ## ---------------- LINEAR BILEVEL PROBLEMS ---------------- ##
         # ...existing code...
@@ -3221,7 +3253,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 173 || prob_no == "ShehuEtal2019Ex42"
-        error("ShehuEtal2019Ex42 requires additional parameters - implement separately")
+        @warn "ShehuEtal2019Ex42 requires additional parameters - need to be implemented separately"
     else
         error("Problem $prob_no not implemented yet")
     end
