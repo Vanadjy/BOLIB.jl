@@ -25,10 +25,10 @@ This package provides an open source access to Bilevel Optimization toy problems
 
 $$
     \begin{aligned}
-    \min_{x \in X, y \in \mathds{R}^{n_y}} \quad  & F(x,y)  \\
-    s.t. \quad & G(x,y)  \le 0 \\
-        & y \in   \argmaxim_{z \in Y} \quad  f(x,z)\\
-        & \quad \quad \quad \; s.t. \quad g(x,z) \le 0. \\
+    \min_{x \in X, y^* \in \R^{n_y}} \quad  & F(x,y^*)  \\
+    \st \quad & G(x,y^*)  \le 0 \\
+      & y^* \in   \mbox{argmin}_{y \in Y} \quad  f(x,y)\\
+      & \quad \quad \quad \; \st \quad \; g(x,y) \le 0, \\
     \end{aligned}
 $$
 
@@ -63,11 +63,11 @@ g(x0, y0) # Returns a vector
 
 It is also possible to generate an ADNLPModel for both upper-level and lower-level problems to have access to automatically generated derivatives for objective functions and constraints. Since this package is initialy designed for a DFO setting, ADNLPModels allow to use first and second order methods to solve BOLIB problems.
 
-## How to Cite
+<!--## How to Cite
 
-If you use BOLIB.jl in your work, please cite using the format given in [CITATION.cff](https://github.com/JuliaSmoothOptimizers/BOLIB.jl/blob/main/CITATION.cff).
+If you use BOLIB.jl in your work, please cite using the format given in [CITATION.cff](https://github.com/vanadjy/BOLIB.jl/blob/main/CITATION.cff).-->
 
 ## Bug reports and discussions
 
-If you think you found a bug, feel free to open an [issue](https://github.com/JuliaSmoothOptimizers/BOLIB.jl/issues).
+If you think you found a bug, feel free to open an [issue](https://github.com/vanadjy/BOLIB.jl/issues).
 Focused suggestions and requests can also be opened as issues. Before opening a pull request, start an issue or a discussion on the topic, please.
