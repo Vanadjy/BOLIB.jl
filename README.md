@@ -28,7 +28,7 @@ $$
     \min_{x \in X, y \in R^{n_y}} \quad  & F(x,y)  \\
     s.t. \quad & G(x,y)  \le 0 \\
       & y \in   \mbox{argmin}_{z \in Y} \quad  f(x,z)\\
-      & \quad \quad \quad  s.t. \quad \quad g(x,z) \le 0, \\
+      & \quad \quad \quad  s.t. \quad \quad \quad g(x,z) \le 0, \\
     \end{aligned}
 $$
 
