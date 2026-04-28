@@ -25,10 +25,10 @@ This package provides an open source access to Bilevel Optimization toy problems
 
 $$
     \begin{aligned}
-    \min_{x \in X, y^{*} \in R^{n_y}} \quad  & F(x,y^{*})  \\
-    \st \quad & G(x,y^{*})  \le 0 \\
-      & y^{*} \in   \mbox{argmin}_{y \in Y} \quad  f(x,y)\\
-      & \quad \quad \quad \; \st \quad \; g(x,y) \le 0, \\
+    \min_{x \in X, y \in R^{n_y}} \quad  & F(x,y)  \\
+    \st \quad & G(x,y)  \le 0 \\
+      & y \in   \mbox{argmin}_{z \in Y} \quad  f(x,z)\\
+      & \quad \quad \quad \; \st \quad \; g(x,z) \le 0, \\
     \end{aligned}
 $$
 
