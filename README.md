@@ -1,4 +1,4 @@
-# BOLIB
+# BOLIB.jl
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://JuliaSmoothOptimizers.github.io/JSOTemplate.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaSmoothOptimizers.github.io/JSOTemplate.jl/dev)
@@ -6,7 +6,7 @@
 [![Build Status](https://api.cirrus-ci.com/github/JuliaSmoothOptimizers/JSOTemplate.jl.svg)](https://cirrus-ci.com/github/JuliaSmoothOptimizers/JSOTemplate.jl)
 [![Coverage](https://codecov.io/gh/JuliaSmoothOptimizers/JSOTemplate.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaSmoothOptimizers/JSOTemplate.jl)
 
-Documentation for [BOLIB](https://github.com/Vanadjy/BOLIB.jl).
+Documentation for [BOLIB.jl](https://github.com/Vanadjy/BOLIB.jl).
 
 ## Compatibility
 
@@ -15,7 +15,7 @@ Julia 1.11
 ## How to Install
 
 ````JULIA
-pkg> add BOLIB
+pkg> add https://github.com/Vanadjy/BOLIB
 pkg> test BOLIB
 ````
 
@@ -69,9 +69,9 @@ g(x0, y0) # Returns a vector
 
 It is also possible to generate an ADNLPModel for both upper-level and lower-level problems to have access to automatically generated derivatives for objective functions and constraints. Since this package is initialy designed for a DFO setting, ADNLPModels allow to use first and second order methods to solve BOLIB problems.
 
-<!--## How to Cite
+## How to Cite
 
-If you use BOLIB.jl in your work, please cite using the format given in [CITATION.cff](https://github.com/vanadjy/BOLIB.jl/blob/main/CITATION.cff).-->
+If you use BOLIB.jl in your work, please cite using the format given in [CITATION.cff](https://github.com/vanadjy/BOLIB.jl/blob/main/CITATION.cff).
 
 ## Bug reports and discussions
 

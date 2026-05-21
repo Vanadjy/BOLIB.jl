@@ -1,10 +1,16 @@
-cff-version: 1.2.0
+cff-version: 1.0.0
 message: "If you use this software, please cite it as below."
 authors:
-  - family-names: Template
-    given-names: JSO
-    orcid: https://orcid.org/0123-4567-89AB-CDEF
-title: "JSO Template"
-version: 2.0.4
-doi: 10.5281/zenodo.1234
-date-released: 2021-10-04
+  - family-names: Audet
+    given-names: Charles
+    orcid: https://orcid.org/0000-0002-3043-5393
+  - family-names: Dijon
+    given-names: Valentin
+    orcid: https://orcid.org/0009-0003-6461-524X
+  - family-names: Diouane
+    given-names: Youssef
+    orcid: https://orcid.org/0000-0002-6609-7330
+title: "BOLIB.jl: A Julia library of test problems for bilevel optimization"
+version: 1.0.0
+url: "https://github.com/Vanadjy/BOLIB.jl"
+date-released: 2026-06-01
