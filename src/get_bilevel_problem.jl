@@ -125,7 +125,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             [1.0, 0.0]
         )
 
-    # TODO corriger ce probleme
     elseif prob_no == 5 || prob_no == "Bard1988Ex2"
         return BilevelProblem(
             "Bard1988Ex2",
@@ -161,6 +160,7 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             ],
             −6600.00
         )
+
     elseif prob_no == 6 || prob_no == "Bard1988Ex3"
         return BilevelProblem(
             "Bard1988Ex3",
@@ -296,7 +296,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> D * x + E * y + d,
             [0.13085, 0.05195, 0.1022, 0.0674, 0.025, 0.05]
         )
-    # ...existing code...
 
     elseif prob_no == 12 || prob_no == "CalveteGale1999P1"
         return BilevelProblem(
@@ -466,7 +465,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             (x, y) -> [y[1]^2 - x[1]],
             31.25
         )
-    # ...existing code...
 
     elseif prob_no == 21 || prob_no == "DempeDutta2012Ex24"
         return BilevelProblem(
@@ -1432,8 +1430,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
             ],
             [0.189, 0.4343]
         )
-
-    # ...existing code...
 
     elseif prob_no == 69 || prob_no == "MitsosBarton2006Ex320"
         return BilevelProblem(
@@ -2632,7 +2628,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         @warn "OptimalControl requires additional parameters - need to be implemented separately"
 
     ## ---------------- LINEAR BILEVEL PROBLEMS ---------------- ##
-        # ...existing code...
 
     elseif prob_no == 139 || prob_no == "AnandalinghamWhite1990"
         return BilevelProblem(
@@ -2957,7 +2952,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 156 || prob_no == "MershaDempe2006Ex1"
-        #@warn "MershaDempe2006Ex1 has no optimal solution."
         return BilevelProblem(
             "MershaDempe2006Ex1",
             [1, 1, 1, 5],
@@ -3086,9 +3080,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 163 || prob_no == "FrankeEtal2018Ex53"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 2, 4, 4]
-        # xy = [1, 1, 1]
-        # Ff = [1, 1, 1]
         return BilevelProblem(
             "FrankeEtal2018Ex53",
             [1, 2, 4, 4],
@@ -3102,9 +3093,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 164 || prob_no == "FrankeEtal2018Ex511"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 3, 0, 4]
-        # xy = [1, 1, 1, 1]
-        # Ff = [3, 0, 1]
         return BilevelProblem(
             "FrankeEtal2018Ex511",
             [1, 3, 0, 4],
@@ -3118,9 +3106,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 165 || prob_no == "FrankeEtal2018Ex513"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 3, 0, 3]
-        # xy = [1, 1, 1, 1]
-        # Ff = [-1, 0, 1]
         return BilevelProblem(
             "FrankeEtal2018Ex513",
             [1, 3, 0, 3],
@@ -3138,7 +3123,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 166 || prob_no == "FrankeEtal2018Ex521"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 2, 0, 3]
         return BilevelProblem(
             "FrankeEtal2018Ex521",
             [1, 2, 0, 3],
@@ -3156,9 +3140,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 167 || prob_no == "MitsosBarton2006Ex31"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 1, 2, 2]
-        # xy = [1, 1]
-        # Ff = [5, 0, 1]
         return BilevelProblem(
             "MitsosBarton2006Ex31",
             [1, 1, 2, 2],
@@ -3172,10 +3153,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 168 || prob_no == "MitsosBarton2006Ex32"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 1, 3, 2]
-        # xy = [1, 1]
-        # Ff = [1, -1, 1]
-        #@warn "Problem MitsosBarton2006Ex32 has no optimal solution"
         return BilevelProblem(
             "MitsosBarton2006Ex32",
             [1, 1, 3, 2],
@@ -3189,9 +3166,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 169 || prob_no == "MitsosBarton2006Ex33"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 1, 2, 3]
-        # xy = [1, 1]
-        # Ff = [1, 0, 1]
         return BilevelProblem(
             "MitsosBarton2006Ex33",
             [1, 1, 2, 3],
@@ -3205,9 +3179,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 170 || prob_no == "MitsosBarton2006Ex34"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 1, 2, 2]
-        # xy = [1, 1]
-        # Ff = [1, -1, 1]
         return BilevelProblem(
             "MitsosBarton2006Ex34",
             [1, 1, 2, 2],
@@ -3221,9 +3192,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 171 || prob_no == "MitsosBarton2006Ex35"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 1, 2, 2]
-        # xy = [1, 1]
-        # Ff = [0.5, 0.5, 1]
         return BilevelProblem(
             "MitsosBarton2006Ex35",
             [1, 1, 2, 2],
@@ -3237,9 +3205,6 @@ function get_bilevel_problem(prob_no::Union{Int,String})
         )
 
     elseif prob_no == 172 || prob_no == "MitsosBarton2006Ex36"
-        # [dim_x, dim_y, dim_G, dim_g] = [1, 1, 2, 2]
-        # xy = [1, 1]
-        # Ff = [1, 1, 1]
         return BilevelProblem(
             "MitsosBarton2006Ex36",
             [1, 1, 2, 2],
